@@ -24,7 +24,6 @@ int main()
 		printf("open Error\n");
 		exit(0);
 	}
-	//size_t size =(MAX_SEQUENCE_LENGTH+1)* sizeof(int)
 	int ftrunc_res = ftruncate(shm_fd,64);
 	if(ftrunc_res==-1){
 		printf("Cate Error\n");
