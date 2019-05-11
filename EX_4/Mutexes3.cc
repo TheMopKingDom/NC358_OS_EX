@@ -7,7 +7,6 @@
 
 #define N 3
 #define MAXSize 10
-static int successmin,successmax,successavg;
 
 void *min_thread(void *arg)
 {               int *test = (int*)arg;
@@ -18,6 +17,7 @@ void *min_thread(void *arg)
     }
   }     
         //printf("Min number is : %d\n", min);
+        static int successmin;
         successmin = min;
         pthread_exit((void *)&successmin);
 }
@@ -30,6 +30,7 @@ void *max_thread(void *arg)
     }
   }
         //printf("Max number is : %d\n", max);
+        static int successmax;
         successmax = max;
         pthread_exit((void *)&successmax);
 }
@@ -41,6 +42,7 @@ for (int i=0; i< MAXSize ; i++){
 }
         avg = avg/MAXSize ;
       //printf("Avg number is : %d\n", avg);
+        static int successavg;
         successavg = avg;
         pthread_exit((void *)&successavg);
 }
@@ -60,8 +62,6 @@ int main(int argc, char *argv[])
         pthread_join(my_thread[0], &min);
         pthread_join(my_thread[1], &max);
         pthread_join(my_thread[2], &avg);
-        //int test =*(int *)min;
-        //printf("test of main : %d\n",test);
         printf("Min of main : %d\n",*(int *)min);
         printf("Max of main : %d\n",*(int *)max);
         printf("Avg of main : %d\n",*(int *)avg);
